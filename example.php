@@ -38,6 +38,11 @@ class Example extends CLI{
         exit();
       }
     }
+    //you may color the output like so.
+    print $this->colorText("flagvar2: ".$this->flagvar2."\n", "YELLOW");
+    print $this->optionvar1."\n";
+    print $this->argumentvar."\n";
+    
   }
   
   
@@ -69,6 +74,7 @@ class Example extends CLI{
       return 'Help for the flag -e';
     }
     print "\n".'flag_e was just called and $opt was: '.$opt."\n";
+    $this->flagvar2 = 'flag var is now set';
   }
   
   /**

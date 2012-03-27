@@ -98,10 +98,9 @@ class CLI{
   
   
   /**
-  "Input":
-  ./script.php -a arg1 --opt1 arg2 -bcde --opt2=val2 arg3 arg4 arg5 -fg --opt3
   
-  "print_r Output":
+  Example input: ./script.php -a arg1 --opt1 arg2 -bcde --opt2=val2 arg3 arg4 arg5 -fg --opt3
+  Example output:
   Array
   (
     [exec] => ./script.php
@@ -134,7 +133,6 @@ class CLI{
       [4] => arg5
     )
   )
-  *
   */  
   public static function parseArgs($args = null) {
     if($args == null){ 
@@ -180,7 +178,7 @@ class CLI{
       continue;
     }
     return $ret;
-  }//function arguments
+  }
   
   /**
   * ./script.php arg3
@@ -211,7 +209,9 @@ class CLI{
   
   
   
-  //-h
+  /**
+   * Handle the default help flag
+   */
   private function flag_h($opt = null){
     if($opt == 'help'){
       return 'Display help.';
@@ -219,7 +219,9 @@ class CLI{
     $this->help();
   }
   
-  // ./script.php help
+  /**
+   * Handle the default help argument
+   */
   private function argument_help($opt = null){
     if($opt == 'help'){
       return 'Display help.';
@@ -228,7 +230,11 @@ class CLI{
   }
   
   /**
-   * ./script.php --option1 --option1=var1 => array('options' => array( 0 => 'option1', array('0' => 'option1', '1' => 'var1'))
+   * ./script.php --option1
+   *  --option1=var1 =>
+   *    array('options' =>
+   *      array( 0 => 'option1',
+   *        array('0' => 'option1', '1' => 'var1'))
    * 
    * @param unknown_type $opt
    */
@@ -269,10 +275,16 @@ class CLI{
 
   
   /**
-   * print out help
+   * Print out help for this program.
+   * The help is auto generated using various variables.
    */
   public function help($args = array()){
-    print $this->colorText($this->appname, "LIGHT_RED")."\n--------------\n";
+    print $this->colorText($this->appname, "LIGHT_RED")."\n";
+    print $this->colorText($this->author.' - '.$this->copyright, "LIGHT_RED")."\n";
+        
+    
+    for($i=0; $i < strlen($this->appname.$this->author.$this->copyright); $i++){ print '-'; }
+    print "\n";
     
     $methods = get_class_methods(get_class($this));
     foreach($methods as $method){
@@ -311,29 +323,30 @@ class CLI{
   
   # first define colors to use
   private $_colors = array(
-    "LIGHT_RED"      => "[1;31m",
-    "LIGHT_GREEN"     => "[1;32m",
-    "YELLOW"         => "[1;33m",
-    "LIGHT_BLUE"     => "[1;34m",
-    "MAGENTA"     => "[1;35m",
-    "LIGHT_CYAN"     => "[1;36m",
+    "LIGHT_RED"     => "[1;31m",
+    "LIGHT_GREEN"   => "[1;32m",
+    "YELLOW"        => "[1;33m",
+    "LIGHT_BLUE"    => "[1;34m",
+    "MAGENTA"       => "[1;35m",
+    "LIGHT_CYAN"    => "[1;36m",
     "WHITE"         => "[1;37m",
-    "NORMAL"         => "[0m",
+    "NORMAL"        => "[0m",
     "BLACK"         => "[0;30m",
-    "RED"         => "[0;31m",
+    "RED"           => "[0;31m",
     "GREEN"         => "[0;32m",
     "BROWN"         => "[0;33m",
-    "BLUE"        => "[0;34m",
-    "CYAN"         => "[0;36m",
-    "BOLD"         => "[1m",
-    "UNDERSCORE"     => "[4m",
-    "REVERSE"     => "[7m",
+    "BLUE"          => "[0;34m",
+    "CYAN"          => "[0;36m",
+    "BOLD"          => "[1m",
+    "UNDERSCORE"    => "[4m",
+    "REVERSE"       => "[7m",
     
   );
-  ##############################################
-  # Output colorized text to terminal run
-  # php scripts..
-  ##############################################
+
+  
+  /**
+   * Output coloized text to the terminal
+   */
   function colorText($text, $color="NORMAL", $back=1){
     $out = $this->_colors[$color];
     if($out == ""){
@@ -343,10 +356,8 @@ class CLI{
       return chr(27)."$out$text".chr(27)."[0m";#.chr(27);
     }else{
       echo chr(27)."$out$text".chr(27).chr(27)."[0m";#.chr(27);
-    }//fi
-  }// end function
-  ##############################################
-  
+    }
+  }
   
 }
 

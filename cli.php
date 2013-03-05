@@ -1,7 +1,7 @@
 <?
 /**
  * Command line interface
- * License: GPL v3
+ * License: MIT
  * Allows easily writing OOP CLI scripts in PHP
  * @author sami
  *

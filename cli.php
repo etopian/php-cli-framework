@@ -68,8 +68,8 @@ class CLI{
   /**
    * Set the name of the app
    */
-  public function setAppName(){
-    
+  public function setAppName($appname){
+     $this->appname = $appname;
   }
   
 

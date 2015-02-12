@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Command line interface
  * License: MIT
@@ -6,7 +6,7 @@
  * @author sami
  *
  */
-class CLI{
+abstract class CLI{
   
   private $appname = 'CLI Framework';
   private $author = 'Sami Khan';
